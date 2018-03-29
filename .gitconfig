@@ -1,7 +1,7 @@
 [alias]
 
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# View abbreviated SHA, description, and history graph of the latest 12 commits
+	l = log --pretty=oneline -n 12 --graph --abbrev-commit
 
 	# View the current working tree status using the short format
 	s = status -s
@@ -102,6 +102,7 @@
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
+	editor = subl -n -w
 
 	# Speed up commands involving untracked files such as `git status`.
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
