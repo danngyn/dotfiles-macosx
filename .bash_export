@@ -1,12 +1,6 @@
 #!/bin/bash
 # .bash_export
 
-export PATH="/opt/homebrew/opt/openjdk@21/bin:/opt/homebrew/opt/node@20/bin:$PATH"
-
 export EDITOR="nvim"
 
-#export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
-#export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
-
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home"
-
+export XDG_CONFIG_HOME="$HOME/.config"
