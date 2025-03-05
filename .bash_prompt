@@ -62,7 +62,7 @@ if tput setaf 1 &> /dev/null; then
 	bold=$(tput bold);
 	reset=$(tput sgr0);
 	# Solarized colors, taken from http://git.io/solarized-colors.
-	black=$(tput setaf 0);
+	black=$(tput setaf 235);
 	blue=$(tput setaf 33);
 	cyan=$(tput setaf 37);
 	green=$(tput setaf 64);
