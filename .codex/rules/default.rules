@@ -1,0 +1,4 @@
+prefix_rule(pattern=["codex", "--profile"], decision="allow")
+prefix_rule(pattern=["codex", "mcp", "add"], decision="allow")
+prefix_rule(pattern=["gh", "api"], decision="allow")
+prefix_rule(pattern=["git", "fetch"], decision="allow")
