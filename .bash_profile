@@ -10,3 +10,5 @@ unset file;
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+eval "$(dev _hook)"
+

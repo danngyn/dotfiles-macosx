@@ -51,7 +51,7 @@ prompt_git() {
 
 		[ -n "${s}" ] && s=" [${s}]";
 
-		echo -e "${1}${branchName}${2}${s}";
+		echo -e "${1}\ue725 ${branchName}${2}${s}";
 	else
 		return;
 	fi;
@@ -70,7 +70,7 @@ if tput setaf 1 &> /dev/null; then
 	purple=$(tput setaf 125);
 	red=$(tput setaf 124);
 	violet=$(tput setaf 61);
-	white=$(tput setaf 15);
+	white=$(tput setaf 245);
 	yellow=$(tput setaf 136);
 else
 	bold='';
@@ -106,7 +106,7 @@ PS1="\[\033]0;\w\007\]"; # working directory base name
 PS1+="\[${bold}\]\n"; # newline
 PS1+="\[${userStyle}\]\u"; # username
 PS1+="\[${white}\]@";
-PS1+="\[${hostStyle}\]\h"; # host
+PS1+="\[${hostStyle}\]clio"; # host
 PS1+="\[${white}\] > ";
 PS1+="\[${green}\]\w"; # working directory full path
 PS1+="\$(prompt_git \"\[${white}\]\non \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details

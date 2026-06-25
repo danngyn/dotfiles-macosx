@@ -1,3 +1,69 @@
 #!/bin/bash
 # .bash_function
 
+diff_files() {
+  local ext=$1
+  local base=$2
+
+  local files=($(git diff --name-only "$base"..HEAD | grep -E "$ext"))
+
+  echo "${files[@]}"
+}
+
+rubocop_diff() {
+  local base=""
+
+  for arg in "$@"; do
+    case $arg in
+      -b=*) base="${arg#-b=}" ;;
+    esac
+  done
+
+  if [ -z "$base" ]; then
+    echo "Usage: rubocop_diff -b=<branch>"
+    return 1
+  fi
+
+  local files=($(diff_files ".rb" "$base"))
+
+  for f in "${files[@]}"; do
+    printf "\n> linting: %-s" "$f"
+    bundle exec rubocop --autocorrect --display-cop-names --force-exclusion --extra-details --format=simple "$f"
+  done
+}
+
+rspec_diff() {
+  local base=""
+
+  for arg in "$@"; do
+    case $arg in
+      -b=*) base="${arg#-b=}" ;;
+    esac
+  done
+
+  if [ -z "$base" ]; then
+    echo "Usage: rspec_diff -b=<branch>"
+    return 1
+  fi
+
+  local files=($(diff_files "_spec.rb" "$base"))
+
+  for f in "${files[@]}"; do
+    printf "\n> running spec: %-s" "$f"
+    bundle exec rspec "$f"
+  done
+}
+
+prettier_diff() {
+  yarn --cwd=components/grow prettier:diff:fix
+}
+
+eslint_diff() {
+  local files=($(diff_files ".js|.jsx"))
+
+  for f in "${files[@]}"; do
+    local working_dir_file="${f#components/grow/}"
+    printf "\n> linting: %-s" "$working_dir_file"
+    yarn --cwd=components/grow eslint --fix "$working_dir_file"
+  done
+}

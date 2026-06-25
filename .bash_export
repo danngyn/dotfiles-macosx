@@ -4,3 +4,30 @@
 export EDITOR="nvim"
 
 export XDG_CONFIG_HOME="$HOME/.config"
+#export LDFLAGS="-L/opt/homebrew/opt/node@20/lib"
+#export CPPFLAGS="-I/opt/homebrew/opt/node@20/include"
+
+export NODEJS="/opt/homebrew/opt/node@23"
+
+export JAVA="/opt/homebrew/opt/openjdk@21"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk-21.jdk/Contents/Home"
+
+export RUBY="/opt/homebrew/opt/ruby"
+export GEM="/opt/homebrew/lib/ruby/gems/3.3.0"
+
+export GOROOT="/opt/homebrew/opt/go/libexec"
+export GOPATH="$HOME/go"
+
+export LOCAL="$HOME/.local"
+
+export PATH="$GOPATH/bin:$GEM/bin:$RUBY/bin:$JAVA/bin:$NODEJS/bin:/opt/homebrew/bin:$LOCAL/bin:$PATH"
+
+# project/grows
+function grow_rubocop {
+	cd ~/projects/grow
+	./bin/bundle exec rubocop   --autocorrect  --display-cop-names  --force-exclusion  --extra-details  --format=simple
+}
+
+# for local grow <-> document-converter
+export USE_MOCK_RSB_SQS_CLIENT=1
+
