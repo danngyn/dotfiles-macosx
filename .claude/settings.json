@@ -1,0 +1,44 @@
+{
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Linear__get_issue",
+      "mcp__claude_ai_Linear__list_issues",
+      "mcp__claude_ai_Linear__save_issue",
+      "mcp__claude_ai_Linear__get_issue_status",
+      "mcp__claude_ai_Linear__get_project",
+      "mcp__claude_ai_Linear__get_document",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__unblocked__context_get_urls",
+      "mcp__unblocked__context_research"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr edit *)",
+      "Bash(gh pr merge *)",
+      "Bash(gh pr close *)"
+    ]
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/dan/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "ruby-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "andrej-karpathy-skills@karpathy-skills": true
+  },
+  "extraKnownMarketplaces": {
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    }
+  },
+  "effortLevel": "high"
+}
