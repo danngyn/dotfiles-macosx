@@ -1,7 +1,19 @@
 [alias]
+	a = add
+	b = branch
+	chk = checkout
+	chp = cherry-pick
+	chpc = cherry-pick --continue
+	cmt = commit -m
+	cmts = commit --amend --no-edit
+	swt = switch
+	df = "!f() { git diff --stat --color ${1}..HEAD; }; f"
+
 
 	# View abbreviated SHA, description, and history graph of the latest 12 commits
 	l = log --pretty=oneline -n 12 --graph --abbrev-commit
+
+	la = log --pretty=custom -n 12 --graph --abbrev-commit
 
 	# View the current working tree status using the short format
 	s = status -s
@@ -102,7 +114,7 @@
 	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
-	editor = subl -n -w
+	editor = vim
 
 	# Speed up commands involving untracked files such as `git status`.
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
@@ -136,7 +148,7 @@
 [commit]
 
 	# https://help.github.com/articles/signing-commits-using-gpg/
-	gpgsign = true
+	gpgsign = false
 
 [diff]
 
@@ -186,3 +198,10 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+
+[pretty]
+	custom = "%C(yellow)%h %C(red bold)%d %C(white dim)(%ar) %C(reset)%s %C(cyan)--%an"
+
+[user]
+	name = dan nguyen
+	email = dan.nguyen@clio.com
