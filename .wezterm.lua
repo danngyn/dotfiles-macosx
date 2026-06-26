@@ -46,8 +46,35 @@ config.window_padding = {
 
 config.scrollback_lines = 10000
 
+-- cached CPU / memory usage, refreshed periodically (shelling out is sync, so throttle)
+local sys = { cpu = "?", mem = "?", tick = 0 }
+
+local function run(cmd)
+  local ok, stdout = pcall(function()
+    local _, out = wezterm.run_child_process({ "/bin/sh", "-c", cmd })
+    return out
+  end)
+  if ok and stdout and stdout ~= "" then
+    return (stdout:gsub("%s+$", ""))
+  end
+  return nil
+end
+
+local function refresh_sys()
+  local cpu = run("ps -A -o %cpu= | awk -v n=$(sysctl -n hw.ncpu) '{s+=$1} END{printf \"%.0f\", s/n}'")
+  local mem = run("memory_pressure 2>/dev/null | awk -F: '/free percentage/{gsub(/[ %]/,\"\",$2); printf \"%.0f\", 100-$2}'")
+  if cpu then sys.cpu = cpu end
+  if mem then sys.mem = mem end
+end
+
 -- status bar: leader indicator on the left, info widgets on the right
 wezterm.on("update-status", function(window, _)
+  -- refresh CPU/mem every ~5s (handler fires ~1/s)
+  sys.tick = sys.tick + 1
+  if sys.tick % 5 == 1 then
+    refresh_sys()
+  end
+
   -- left: leader indicator (🌊 while leader is pending)
   local prefix = ""
   if window:leader_is_active() then
@@ -67,9 +94,13 @@ wezterm.on("update-status", function(window, _)
   window:set_right_status(wezterm.format({
     { Foreground = { Color = solarized.green } },
     { Text = "[" .. window:active_workspace() .. "]  " },
-    { Foreground = { Color = solarized.orange } },
-    { Text = battery ~= "" and (battery .. "  ") or "" },
     { Foreground = { Color = solarized.blue } },
+    { Text = "" .. " " .. sys.cpu .. "%  " },
+    { Foreground = { Color = solarized.violet } },
+    { Text = "" .. " " .. sys.mem .. "%  " },
+    { Foreground = { Color = solarized.magenta} },
+    { Text = battery ~= "" and ("" .. " " .. battery .. "  ") or "" },
+    { Foreground = { Color = solarized.base0 } },
     { Text = wezterm.strftime("%b %d %H:%M") .. " " },
   }))
 end)
