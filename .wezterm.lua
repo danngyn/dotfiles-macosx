@@ -161,6 +161,15 @@ config.keys = {
       end),
     }), pane)
   end) },
+  -- create a new named workspace (tmux: new session)
+  { mods = "LEADER", key = "W", action = wezterm.action.PromptInputLine({
+    description = "New workspace name:",
+    action = wezterm.action_callback(function(window, pane, line)
+      if line and line ~= "" then
+        window:perform_action(wezterm.action.SwitchToWorkspace({ name = line }), pane)
+      end
+    end),
+  }) },
   { mods = "LEADER", key = "(", action = wezterm.action.SwitchWorkspaceRelative(-1) },
   { mods = "LEADER", key = ")", action = wezterm.action.SwitchWorkspaceRelative(1) },
   { mods = "LEADER", key = "$", action = wezterm.action.PromptInputLine({
