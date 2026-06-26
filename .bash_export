@@ -34,3 +34,6 @@ export USE_MOCK_RSB_SQS_CLIENT=1
 # for dev-cli
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
 
+# for development
+export COMMUNICATIONS_JWT_PRIVATE_KEY="$(cat /Users/dan/projects/ruby_service_bucket/service/communications/dev/jwt_private_key.pem)"
+
